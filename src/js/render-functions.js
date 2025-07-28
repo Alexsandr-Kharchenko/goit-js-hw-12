@@ -51,3 +51,24 @@ export function showLoader() {
 export function hideLoader() {
   loaderContainer.classList.add('hidden');
 }
+
+export function showLoadMoreButton() {
+  const loadMoreBtn = document.getElementById('load-more-btn');
+  loadMoreBtn.classList.remove('hidden');
+}
+
+export function hideLoadMoreButton() {
+  const loadMoreBtn = document.getElementById('load-more-btn');
+  loadMoreBtn.classList.add('hidden');
+}
+
+export function scrollPage() {
+  const card = document.querySelector('.gallery-item');
+  if (card) {
+    const { height: cardHeight } = card.getBoundingClientRect();
+    window.scrollBy({
+      top: cardHeight * 2,
+      behavior: 'smooth',
+    });
+  }
+}

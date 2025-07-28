@@ -4,6 +4,9 @@ import {
   clearGallery,
   showLoader,
   hideLoader,
+  showLoadMoreButton,
+  hideLoadMoreButton,
+  scrollPage,
 } from './js/render-functions.js';
 
 import iziToast from 'izitoast';
@@ -14,7 +17,7 @@ const form = document.querySelector('.form');
 const loadingMessage = document.getElementById('loading-message');
 const loadMoreBtn = document.getElementById('load-more-btn');
 
-let currentPage = 250;
+let currentPage = 1;
 let currentQuery = '';
 let totalHits = 0;
 
@@ -62,6 +65,9 @@ form.addEventListener('submit', async e => {
     iziToast.error({
       message: 'Something went wrong. Please try again later.',
       position: 'topRight',
+      backgroundColor: '#ef4040',
+      iconUrl: errorIcon,
+      messageColor: '#fff',
     });
   } finally {
     hideLoader();
@@ -86,6 +92,9 @@ loadMoreBtn.addEventListener('click', async () => {
       iziToast.info({
         message: "We're sorry, but you've reached the end of search results.",
         position: 'bottomRight',
+        backgroundColor: '#ef4040',
+        iconUrl: errorIcon,
+        messageColor: '#fff',
       });
     }
   } catch (error) {
@@ -98,25 +107,6 @@ loadMoreBtn.addEventListener('click', async () => {
     hideLoader();
   }
 });
-
-function showLoadMoreButton() {
-  loadMoreBtn.classList.remove('hidden');
-}
-
-function hideLoadMoreButton() {
-  loadMoreBtn.classList.add('hidden');
-}
-
-function scrollPage() {
-  const card = document.querySelector('.gallery-item');
-  if (card) {
-    const { height: cardHeight } = card.getBoundingClientRect();
-    window.scrollBy({
-      top: cardHeight * 2,
-      behavior: 'smooth',
-    });
-  }
-}
 
 window.addEventListener('load', () => {
   hideLoader();
