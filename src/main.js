@@ -53,7 +53,7 @@ form.addEventListener('submit', async e => {
       });
     } else {
       createGallery(data.hits);
-      if (totalHits > 20) {
+      if (totalHits > 15) {
         showLoadMoreButton();
       }
     }
@@ -80,7 +80,7 @@ loadMoreBtn.addEventListener('click', async () => {
     createGallery(data.hits);
     scrollPage();
 
-    const totalPages = Math.ceil(totalHits / 20);
+    const totalPages = Math.ceil(totalHits / 15);
     if (currentPage >= totalPages) {
       hideLoadMoreButton();
       iziToast.info({
